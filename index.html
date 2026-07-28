@@ -190,16 +190,16 @@
 						<h5 class="title is-5">Languages</h5>
 						<ul>
 							<li class="li"><img class="tech-img" src="Icons/cpp.svg">C/C++</li>
-							<li class="li"><img class="tech-img" src="Icons/typescript.svg">TypeScript</li>
-							<li class="li"><img class="tech-img" src="Icons/javascript.svg">JavaScript + node.js</li>
-							<li class="li"><img class="tech-img" src="Icons/php.svg">PHP</li>
+							<li class="li"><img class="tech-img" src="Icons/typescript.svg">TypeScript + Node.js</li>
+							<li class="li"><img class="tech-img" src="Icons/java.svg">Java</li>
+							<li class="li"><img class="tech-img" src="Icons/csharp.svg">C#</li>
+							<li class="li"><img class="tech-img" src="Icons/rust.svg">Rust</li>
 							<li class="li"><img class="tech-img" src="Icons/html.svg">HTML5/CSS</li>
 						</ul>
 						<h5 class="title is-5">Databases</h5>
 						<ul>
 							<li class="li"><img class="tech-img" src="Icons/mysql.png">MySQL</li>
 							<li class="li"><img class="tech-img" src="Icons/postgersql.png">Postgres</li>
-							<li class="li"><img class="tech-img" src="Icons/mongodb.png">MongoDB</li>
 							<li class="li"><img class="tech-img" src="Icons/redis.png">Redis</li>
 						</ul>
 					</div>
@@ -211,15 +211,13 @@
 							<li class="li"><img class="tech-img" src="Icons/unrealengine.png">Unreal Engine (C++ Game Engine)</li>
 							<li class="li"><img class="tech-img" src="Icons/cocos2d.png">Cocos2d (C++ Game Engine)</li>
 							<li class="li"><img class="tech-img" src="Icons/qt.png">Qt (C++ Framework)</li>
+							<li class="li"><img class="tech-img" src="Icons/v8.svg">V8 (JavaScript Engine)</li>
+							<li class="li"><img class="tech-img" src="Icons/OpenGL.svg">OpenGL (Graphics Library)</li>
+							<li class="li"><img class="tech-img" src="Icons/webgl.png">WebGL (Graphics Library)</li>
 							<li class="li"><img class="tech-img" src="Icons/nest.svg">NestJS (Nodejs Framework)</li>
-							<li class="li"><img class="tech-img" src="Icons/vue.svg">Vue js (SPA/SFC)</li>
-							<li class="li"><img class="tech-img" src="Icons/angular.svg">Angular js</li>
-							<li class="li"><img class="tech-img" src="Icons/laravel.svg">Laravel php</li>
-							<li class="li"><img class="tech-img" src="Icons/nodejs.svg">Express js</li>
 							<li class="li"><img class="tech-img" src="Icons/phaser.png">Phaser js (Js/webgl 2D Game Engine)</li>
 							<li class="li"><img class="tech-img" src="Icons/websocket.png">Websocket Api (Backend/FrontEnd [Js/C++])
 							</li>
-							<li class="li"><img class="tech-img" src="Icons/rabbitmq.png">RabbitMq</li>
 							<li class="li"><img class="tech-img" src="Icons/redis.png">Redis</li>
 						</ul>
 					</div>
@@ -995,6 +993,62 @@
 			</div>
 		</div>
 	</section>
+	<script>
+		(function () {
+			var sliders = document.querySelectorAll('.screen-list #slider');
+
+			sliders.forEach(function (slider, sliderIndex) {
+				var radios = slider.querySelectorAll('input[type="radio"]');
+				var labels = slider.querySelectorAll('label.slider-label');
+				var inner = slider.querySelector('#slides .inner');
+
+				function activateSlide(index) {
+					if (inner) {
+						inner.style.marginLeft = '-' + (index * 100) + '%';
+					}
+
+					labels.forEach(function (label, labelIndex) {
+						label.classList.toggle('is-active', labelIndex === index);
+					});
+
+					if (radios[index]) {
+						radios[index].checked = true;
+					}
+				}
+
+				radios.forEach(function (radio, radioIndex) {
+					radio.name = 'slider-' + sliderIndex;
+					radio.classList.add('slide-btn');
+					radio.id = 'slider-' + sliderIndex + '-slide-' + (radioIndex + 1);
+					radio.addEventListener('change', function () {
+						activateSlide(radioIndex);
+					});
+				});
+
+				labels.forEach(function (label, labelIndex) {
+					var target = radios[labelIndex];
+					if (!target) {
+						return;
+					}
+
+					label.setAttribute('for', target.id);
+					label.addEventListener('click', function (event) {
+						event.preventDefault();
+						activateSlide(labelIndex);
+					});
+				});
+
+				var checkedIndex = -1;
+				radios.forEach(function (radio, radioIndex) {
+					if (radio.checked && checkedIndex === -1) {
+						checkedIndex = radioIndex;
+					}
+				});
+
+				activateSlide(checkedIndex >= 0 ? checkedIndex : 0);
+			});
+		})();
+	</script>
 </body>
 
 </html>
